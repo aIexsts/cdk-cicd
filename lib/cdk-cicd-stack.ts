@@ -23,13 +23,11 @@ export class CdkCicdStack extends cdk.Stack {
       stageName: 'test'
     }));
 
-    // testStage.addPre(new CodeBuildStep('unit-tests', {
-    //   commands: [
-    //     'cd cdk-cicd',
-    //     'npm ci',
-    //     'npm test'
-    //   ]
-    // }))
-
+    testStage.addPre(new CodeBuildStep('unit-tests', {
+      commands: [
+        'npm ci',
+        'npm test'
+      ]
+    }))
   }
 }
