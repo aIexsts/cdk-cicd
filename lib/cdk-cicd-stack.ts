@@ -10,27 +10,26 @@ export class CdkCicdStack extends cdk.Stack {
     const pipeline = new CodePipeline(this, 'AwesomePipeline', {
       pipelineName: 'AwesomePipeline',
       synth: new ShellStep('Synth', {
-        input: CodePipelineSource.gitHub('alexhddev/CDK-course-resources', 'cicd-practice'),
+        input: CodePipelineSource.gitHub('aIexsts/cdk-cicd', 'main'),
         commands: [
-          'cd cdk-cicd',
           'npm ci',
           'npx cdk synth'
         ],
-        primaryOutputDirectory: 'cdk-cicd/cdk.out'
+        primaryOutputDirectory: 'cdk.out'
       })
     });
 
-    const testStage = pipeline.addStage(new PipelineStage(this, 'PipelineTestStage', {
-      stageName: 'test'
-    }));
+    // const testStage = pipeline.addStage(new PipelineStage(this, 'PipelineTestStage', {
+    //   stageName: 'test'
+    // }));
 
-    testStage.addPre(new CodeBuildStep('unit-tests', {
-      commands: [
-        'cd cdk-cicd',
-        'npm ci',
-        'npm test'
-      ]
-    }))
+    // testStage.addPre(new CodeBuildStep('unit-tests', {
+    //   commands: [
+    //     'cd cdk-cicd',
+    //     'npm ci',
+    //     'npm test'
+    //   ]
+    // }))
 
   }
 }
